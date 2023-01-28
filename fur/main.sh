@@ -7,10 +7,10 @@ main()
         exit 1
     fi
 
-    if [ "$1" = "remote" ]; then 
-        . "./functions/remote.sh"
+    if [ "$1" = "open-remote" ]; then 
+        . "./functions/open_remote.sh"
         shift 1
-        remote $@
+        open_remote $@
         exit $?
     else 
         echo "Option not understood: $1"
