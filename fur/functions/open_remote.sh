@@ -7,9 +7,7 @@
 
 open_remote()
 {
-    cd "$FUR_PWD"
-
-    remote="$(git config --get remote.origin.url)"
+    remote="$(git -C "$FUR_PWD" config --get remote.origin.url)"
 
     if [ "$?" -eq "1" ]; then
         echo "Origin URL not set for this repository."
