@@ -2,11 +2,17 @@
 
 . "./utilities/handle_link.sh"
 
-# usage: fur remote [--show] 
-# opens or shows the repository's remote url.
+# usage: fur open-remote
+# opens the repository's remote url.
 
 open_remote()
 {
+    if [ "$#" -ne 0 ]; then 
+        echo "Invalid arguments."
+        echo "usage: fur open-remote"
+        return 1
+    fi
+
     remote="$(git -C "$FUR_PWD" config --get remote.origin.url)"
 
     if [ "$?" -eq "1" ]; then
@@ -22,6 +28,6 @@ open_remote()
         handle_link "$url"
     else 
         echo "Origin URL is not a http(s) link that can be opened: $remote"
-        return 1
+        return 2
     fi
 }
