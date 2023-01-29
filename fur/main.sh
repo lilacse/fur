@@ -19,7 +19,12 @@ main()
     if [ "$1" = "open-remote" ]; then 
         . "./functions/open_remote.sh"
         shift 1
-        open_remote $@
+        open_remote "$@"
+        exit $?
+    elif [ "$1" = "recommit" ]; then 
+        . "./functions/recommit.sh"
+        shift 1
+        recommit "$@"
         exit $?
     else 
         echo "Option not understood: $1"
