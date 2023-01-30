@@ -25,7 +25,7 @@ open_remote()
     echo "$remote" | grep -Eq "^https?://"
 
     if [ "$?" -eq "0" ]; then 
-        handle_link "$url"
+        handle_link "$remote"
     else 
         echo "Origin URL is not a http(s) link that can be opened: $remote"
         return 2
