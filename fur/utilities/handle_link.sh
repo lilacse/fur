@@ -1,5 +1,7 @@
 #!/bin/sh
 
+. "./utilities/set_link_handler.sh"
+
 # usage: handle_link [link]
 
 handle_link()
@@ -9,9 +11,12 @@ handle_link()
         return 1
     fi
 
-    if [ "$PLATFORM" = "LINUX" ]; then 
-        xdg-open "$1"
-    else 
-        echo "No command known to handle links with platform \"$PLATFORM\""
+    set_link_handler
+
+    if [ "$?" -eq "0" ]; then 
+        $FUR_LINK_HANDLER "$1"
+        return $?
     fi
+
+    return $?
 }
