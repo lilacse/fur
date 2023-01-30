@@ -20,14 +20,27 @@ open_remote()
         return "$?"
     fi
 
-    # only handle link if it is a http/https link
+    # handle link directly if it is a http/https link
 
     echo "$remote" | grep -Eq "^https?://"
 
     if [ "$?" -eq "0" ]; then 
         handle_link "$remote"
-    else 
-        echo "Origin URL is not a http(s) link that can be opened: $remote"
-        return 2
+        return $?
+    fi 
+
+    # if is GitHub's ssh remote origin url, convert it to a GitHub repo url. 
+
+    echo "$remote" | grep -Eq "^git@github.com:.+/.+\.git$"
+
+    if [ "$?" -eq "0" ]; then 
+        remote=$(echo "$remote" | sed "s;git@github.com:;https://github.com/;")
+        handle_link "$remote"
+        return $?
     fi
+
+    # fail otherwise
+
+    echo "Origin url ($remote) cannot be opened."
+    return 2
 }
