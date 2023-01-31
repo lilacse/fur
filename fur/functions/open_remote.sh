@@ -25,6 +25,15 @@ open_remote()
     echo "$remote" | grep -Eq "^https?://"
 
     if [ "$?" -eq "0" ]; then 
+    
+        # strip off username from Azure Devops's origin url.
+
+        echo "$remote" | grep -Eq "^https://.+@dev.azure.com/.+/_git/.+$" 
+
+        if [ "$?" -eq "0" ]; then 
+            remote=$(echo "$remote" | sed 's;https://.\+@;https://;')
+        fi
+        
         handle_link "$remote"
         return $?
     fi 
