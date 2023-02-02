@@ -1,6 +1,7 @@
 #!/bin/sh
 
 . "./utilities/handle_link.sh"
+. "./utilities/convert_ssh_remote.sh"
 
 # usage: fur open-remote
 # opens the repository's remote url.
@@ -20,36 +21,26 @@ open_remote()
         return 3
     fi
 
-    # handle link directly if it is a http/https link
+    # converts SSH origin to http(s) links beforehand. 
 
-    echo "$remote" | grep -Eq "^https?://"
+    remote=$(convert_ssh_remote "$remote")
 
-    if [ "$?" -eq "0" ]; then 
-    
-        # strip off username from Azure Devops's origin url.
+    if [ "$?" -ne "0" ]; then 
 
-        echo "$remote" | grep -Eq "^https://.+@dev.azure.com/.+/_git/.+$" 
+        # conversion failed, hence the url is not handle-able. 
 
-        if [ "$?" -eq "0" ]; then 
-            remote=$(echo "$remote" | sed 's;https://.\+@;https://;')
-        fi
-        
-        handle_link "$remote"
-        return $?
-    fi 
-
-    # if is GitHub's ssh remote origin url, convert it to a GitHub repo url. 
-
-    echo "$remote" | grep -Eq "^git@github.com:.+/.+\.git$"
-
-    if [ "$?" -eq "0" ]; then 
-        remote=$(echo "$remote" | sed "s;git@github.com:;https://github.com/;")
-        handle_link "$remote"
-        return $?
+        echo "Could not convert origin url ($remote) into a http(s) link."
+        return 2
     fi
 
-    # fail otherwise
+    # strip off username from Azure Devops's origin url.
 
-    echo "Origin url ($remote) cannot be opened."
-    return 2
+    echo "$remote" | grep -Eq "^https://.+@dev.azure.com/.+/_git/.+$" 
+
+    if [ "$?" -eq "0" ]; then 
+        remote=$(echo "$remote" | sed 's;https://.\+@;https://;')
+    fi
+    
+    handle_link "$remote"
+    return $?
 }
