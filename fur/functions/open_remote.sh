@@ -17,7 +17,7 @@ open_remote()
 
     if [ "$?" -eq "1" ]; then
         echo "Origin URL not set for this repository."
-        return "$?"
+        return 3
     fi
 
     # handle link directly if it is a http/https link
