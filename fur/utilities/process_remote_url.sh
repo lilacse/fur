@@ -1,12 +1,12 @@
 #!/bin/sh
 
-# usage: convert_ssh_remote [remote]
-# converts an SSH remote url into a http(s) remote url if possible. http(s) links will be left as is. 
+# usage: process_remote_url [remote]
+# cleanup/converts remote urls. 
 
-convert_ssh_remote()
+process_remote_url()
 {
     if [ "$#" -ne "1" ]; then 
-        echo "Error in convert_ssh_remote: Can only accept 1 argument, received $# instead."
+        echo "Error in process_remote_url: Can only accept 1 argument, received $# instead."
         return 1
     fi
 
@@ -15,6 +15,17 @@ convert_ssh_remote()
     echo "$1" | grep -Eq "^https?://"
 
     if [ "$?" -eq "0" ]; then 
+
+        # strip off username from Azure Devops's origin url.
+
+        echo "$1" | grep -Eq "^https://.+@dev.azure.com/.+/_git/.+$" 
+
+        if [ "$?" -eq "0" ]; then 
+            converted_remote=$(echo "$1" | sed 's;https://.\+@;https://;')
+            echo "$converted_remote"
+            return 0
+        fi
+
         echo "$1"
         return 0
     fi
