@@ -12,7 +12,7 @@ recommit()
     if [ "$?" -ne "0" ]; then 
         echo
         echo "Failed to reset the last commit. See output above for more information."
-        return "$?"
+        return 1
     fi
 
     git -C "$FUR_PWD" commit "$@"
