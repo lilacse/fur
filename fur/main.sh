@@ -26,6 +26,11 @@ main()
         shift 1
         recommit "$@"
         exit $?
+    elif [ "$1" = "pull-requests" ]; then 
+        . "./functions/pull_requests.sh"
+        shift 1
+        pull_requests "$@"
+        exit $?
     else 
         echo "Option not understood: $1"
         exit 2
