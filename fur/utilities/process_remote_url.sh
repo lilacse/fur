@@ -16,6 +16,16 @@ process_remote_url()
 
     if [ "$?" -eq "0" ]; then 
 
+        # strip off `.git` ending from GitHub's origin url. 
+
+        echo "$1" | grep -Eq "^https://github.com/.+.git$"
+
+        if [ "$?" -eq "0" ]; then 
+            converted_remote=$(echo "$1" | sed 's;\.git$;;')
+            echo "$converted_remote"
+            return 0
+        fi
+
         # strip off username from Azure Devops's origin url.
 
         echo "$1" | grep -Eq "^https://.+@dev.azure.com/.+/_git/.+$" 
