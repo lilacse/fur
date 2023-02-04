@@ -25,6 +25,16 @@ pull_requests()
 
     remote=$(process_remote_url "$remote")
 
+    # handle GitHub repo
+
+    echo "$remote" | grep -Eq "^https://github.com/.+$"
+
+    if [ "$?" -eq "0" ]; then 
+        pr_page=$(printf "%s/pulls" "$remote")
+        handle_link "$pr_page"
+        return $?
+    fi
+
     # handle Azure Devops repo
 
     echo "$remote" | grep -Eq "^https://dev.azure.com/.+/_git/.+$" 
