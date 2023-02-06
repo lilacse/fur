@@ -31,6 +31,11 @@ main()
         shift 1
         pull_requests "$@"
         exit $?
+    elif [ "$1" = "issues" ]; then 
+        . "./functions/issues.sh"
+        shift 1
+        issues "$@"
+        exit $?
     else 
         echo "Option not understood: $1"
         exit 2
