@@ -32,6 +32,18 @@ open_remote()
         echo "Handling for origin url ($remote) is unknown."
         return 2
     fi
+
+    # add branch to url
+
+    branch=$(git -C "$FUR_PWD" symbolic-ref --short head)
+
+    # GitHub's url with branch.
+
+    echo "$remote" | grep -Eq "^https://github.com/"
+
+    if [ "$?" -eq "0" ]; then 
+        remote="$(printf "%s/tree/%s" "$remote" "$branch")"
+    fi
     
     handle_link "$remote"
     return $?
