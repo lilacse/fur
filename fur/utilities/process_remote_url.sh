@@ -46,6 +46,7 @@ process_remote_url()
 
     if [ "$?" -eq "0" ]; then 
         converted_remote=$(echo "$1" | sed "s;git@github.com:;https://github.com/;")
+        converted_remote=$(echo "$converted_remote" | sed "s;.git$;;")
         echo "$converted_remote"
         return 0
     fi
