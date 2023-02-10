@@ -44,6 +44,15 @@ open_remote()
     if [ "$?" -eq "0" ]; then 
         remote="$(printf "%s/tree/%s" "$remote" "$branch")"
     fi
+
+    # Azure Devops' url with branch
+
+    echo "$remote" | grep -Eq "^https://dev.azure.com/"
+
+    if [ "$?" -eq "0" ]; then 
+        encoded_branch=$(url_encode "$branch")
+        remote="$(printf "%s?version=GB%s" "$remote" "$encoded_branch")"
+    fi
     
     handle_link "$remote"
     return $?
