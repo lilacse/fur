@@ -5,7 +5,7 @@
 
 recommit()
 {
-    git -C "$FUR_PWD" reset --soft head~1
+    git -C "$FUR_PWD" reset --soft HEAD~1
 
     # aborts if the reset fail for any reason.
 
