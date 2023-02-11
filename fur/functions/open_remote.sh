@@ -35,7 +35,7 @@ open_remote()
 
     # add branch to url
 
-    branch=$(git -C "$FUR_PWD" symbolic-ref --short head)
+    branch=$(git -C "$FUR_PWD" symbolic-ref --short HEAD)
 
     # GitHub's url with branch.
 
