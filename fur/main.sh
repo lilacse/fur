@@ -31,6 +31,11 @@ main()
         shift 1
         pull_requests "$@"
         exit $?
+    elif [ "$1" = "create-pull-request" ]; then 
+        . "./functions/create_pull_request.sh"
+        shift 1
+        create_pull_request "$@"
+        exit $?
     elif [ "$1" = "issues" ]; then 
         . "./functions/issues.sh"
         shift 1
