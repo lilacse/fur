@@ -3,16 +3,31 @@
 . "./utilities/handle_link.sh"
 . "./utilities/process_remote_url.sh"
 
-# usage: fur open-remote
+# usage: fur open-remote [--branch branch_override]
 # opens the repository's remote url.
 
 open_remote()
 {
-    if [ "$#" -ne 0 ]; then 
+    options=$(getopt -a -u --longoptions "branch:" -- "" "$@")
+
+    if [ "$?" -ne "0" ]; then 
+        echo
         echo "Invalid arguments."
-        echo "usage: fur open-remote"
+        echo "usage: fur open-remote [--branch branch_override]"
         return 1
     fi
+
+    set -- $options
+
+    while true; do 
+        if [ "$1" = "--branch" ]; then 
+            branch="$2"
+            shift 2
+        elif [ "$1" = "--" ]; then 
+            shift
+            break
+        fi
+    done
 
     remote="$(git -C "$FUR_PWD" config --get remote.origin.url)"
 
@@ -35,7 +50,9 @@ open_remote()
 
     # add branch to url
 
-    branch=$(git -C "$FUR_PWD" symbolic-ref --short HEAD)
+    if [ -z "$branch" ]; then 
+        branch=$(git -C "$FUR_PWD" symbolic-ref --short HEAD)
+    fi
 
     # GitHub's url with branch.
 
