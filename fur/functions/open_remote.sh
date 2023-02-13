@@ -2,6 +2,7 @@
 
 . "./utilities/handle_link.sh"
 . "./utilities/process_remote_url.sh"
+. "./utilities/url_encode.sh"
 
 # usage: fur open-remote [--branch branch_override]
 # opens the repository's remote url.
