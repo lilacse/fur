@@ -41,6 +41,11 @@ main()
         shift 1
         issues "$@"
         exit $?
+    elif [ "$1" = "issue" ]; then 
+        . "./functions/issue.sh"
+        shift 1
+        issues "$@"
+        exit $?
     else 
         echo "Option not understood: $1"
         exit 2
