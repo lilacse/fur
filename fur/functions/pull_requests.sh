@@ -10,8 +10,8 @@
 pull_requests()
 {
     if [ "$#" -ne 0 ]; then 
-        echo "Invalid arguments."
-        echo "usage: fur <pull-requests | prs>"
+        echo "Invalid arguments." > /dev/stderr
+        echo "usage: fur <pull-requests | prs>" > /dev/stderr
         return 1
     fi
 
@@ -47,6 +47,6 @@ pull_requests()
 
     # fail otherwise as the link is unknown.
 
-    echo "Pull requests link for remote ($remote) is not known!"
+    echo "Pull requests link for remote ($remote) is not known!" > /dev/stderr
     return 2
 }

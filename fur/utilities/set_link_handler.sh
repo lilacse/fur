@@ -5,6 +5,11 @@
 
 set_link_handler()
 {
+    if [ "$#" -ne "0" ]; then 
+        echo "Error in set_link_handler: Can only accept 0 arguments, received $# instead." > /dev/stderr
+        return 1
+    fi
+
     platform=$(uname)
 
     # use `xdg-open` on Linux
@@ -25,6 +30,6 @@ set_link_handler()
 
     # return error for other platforms.
 
-    echo "No command known to handle links with platform \"$platform\""
+    echo "No command known to handle links with platform \"$platform\"" > /dev/stderr
     return 1
 }

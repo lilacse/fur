@@ -8,7 +8,7 @@
 handle_link()
 {
     if [ "$#" -ne "1" ]; then 
-        echo "Error in handle_link: Can only accept 1 argument, received $# instead."
+        echo "Error in handle_link: Can only accept 1 argument, received $# instead." > /dev/stderr
         return 1
     fi
 

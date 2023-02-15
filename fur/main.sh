@@ -7,13 +7,13 @@ main()
     git -C "$FUR_PWD" rev-parse > /dev/null 2>&1
 
     if [ "$?" -ne "0" ]; then 
-        echo "Folder \"$FUR_PWD\" is not a git repo!"
+        echo "Folder \"$FUR_PWD\" is not a git repo!" > /dev/stderr
         exit 3
     fi
     
 
     if [ "$#" -eq "0" ]; then 
-        echo "No arguments supplied!"
+        echo "No arguments supplied!" > /dev/stderr
         exit 1
     fi
 
@@ -62,7 +62,7 @@ main()
             exit $?
             ;;
         *)
-            echo "Option not understood: $1"
+            echo "Option not understood: $1" > /dev/stderr
             exit 2
             ;;
     esac
