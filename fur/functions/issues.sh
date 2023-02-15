@@ -3,14 +3,14 @@
 . "./utilities/handle_link.sh"
 . "./utilities/process_remote_url.sh"
 
-# usage: fur issues
+# usage: fur <issues | tasks | bugs | work-items>
 # opens the issues page for the repository on the remote's website.
 
 issues()
 {
     if [ "$#" -ne 0 ]; then 
         echo "Invalid arguments."
-        echo "usage: fur issues"
+        echo "usage: fur <issues | tasks | bugs | work-items>"
         return 1
     fi
 

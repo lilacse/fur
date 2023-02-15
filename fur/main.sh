@@ -31,25 +31,25 @@ main()
             recommit "$@"
             exit $?
             ;;
-        "pull-requests")
+        "pull-requests" | "prs")
             . "./functions/pull_requests.sh"
             shift 1
             pull_requests "$@"
             exit $?
             ;;
-        "create-pull-request")
+        "create-pull-request" | "cpr")
             . "./functions/create_pull_request.sh"
             shift 1
             create_pull_request "$@"
             exit $?
             ;;
-        "issues")
+        "issues" | "tasks" | "bugs" | "work-items")
             . "./functions/issues.sh"
             shift 1
             issues "$@"
             exit $?
             ;;
-        "issue")
+        "issue" | "task" | "bug" | "work-item")
             . "./functions/issue.sh"
             shift 1
             issues "$@"

@@ -3,7 +3,7 @@
 . "./utilities/handle_link.sh"
 . "./utilities/process_remote_url.sh"
 
-# usage: fur create-pull-request [--from source_repo] [--to target_repo]
+# usage: fur <create-pull-request | cpr> [--from source_repo] [--to target_repo]
 # opens the create pull request page for the repository on the remote's website.
 
 create_pull_request()
@@ -13,7 +13,7 @@ create_pull_request()
     if [ "$?" -ne "0" ]; then 
         echo
         echo "Invalid arguments."
-        echo "usage: fur create-pull-request [--from source_repo] [--to target_repo]"
+        echo "usage: fur <create-pull-request | cpr> [--from source_repo] [--to target_repo]"
         return 1
     fi
 
