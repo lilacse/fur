@@ -35,6 +35,16 @@ issues()
         return $?
     fi
 
+    # handle Azure Devops repo
+
+    echo "$remote" | grep -Eq "^https://dev.azure.com/"
+
+    if [ "$?" -eq "0" ]; then 
+        issue_page=$(echo "$remote" | sed "s;/_git/.\+$;/_workitems/edit/$1/;")
+        handle_link "$issue_page"
+        return $?
+    fi
+
     # fail otherwise as the link is unknown.
 
     echo "Issue link for remote ($remote) is not known!"
