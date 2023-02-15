@@ -55,6 +55,12 @@ main()
             issues "$@"
             exit $?
             ;;
+        "pull-request" | "pr")
+            . "./functions/pull_request.sh"
+            shift 1
+            pull_request "$@"
+            exit $?
+            ;;
         *)
             echo "Option not understood: $1"
             exit 2
