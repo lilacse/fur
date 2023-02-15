@@ -2,6 +2,7 @@
 
 . "./utilities/handle_link.sh"
 . "./utilities/process_remote_url.sh"
+. "./utilities/get_remote_url.sh"
 
 # usage: fur <issues | tasks | bugs | work-items>
 # opens the issues page for the repository on the remote's website.
@@ -14,10 +15,9 @@ issues()
         return 1
     fi
 
-    remote="$(git -C "$FUR_PWD" config --get remote.origin.url)"
+    remote="$(get_remote_url)"
 
-    if [ "$?" -eq "1" ]; then
-        echo "Origin URL not set for this repository."
+    if [ "$?" -ne "0" ]; then
         return 3
     fi
 
