@@ -10,8 +10,8 @@
 issues()
 {
     if [ "$#" -ne 1 ]; then 
-        echo "Invalid arguments."
-        echo "usage: fur <issue | task | bug | work-item> <issue_number>"
+        echo "Invalid arguments." > /dev/stderr
+        echo "usage: fur <issue | task | bug | work-item> <issue_number>" > /dev/stderr
         return 1
     fi
 
@@ -47,7 +47,7 @@ issues()
 
     # fail otherwise as the link is unknown.
 
-    echo "Issue link for remote ($remote) is not known!"
+    echo "Issue link for remote ($remote) is not known!" > /dev/stderr
     return 2
 }
 

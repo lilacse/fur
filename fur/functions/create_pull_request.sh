@@ -12,9 +12,8 @@ create_pull_request()
     options=$(getopt -a -u --longoptions "from:,to:" -- "" "$@")
 
     if [ "$?" -ne "0" ]; then 
-        echo
-        echo "Invalid arguments."
-        echo "usage: fur <create-pull-request | cpr> [--from source_repo] [--to target_repo]"
+        echo "Invalid arguments." > /dev/stderr
+        echo "usage: fur <create-pull-request | cpr> [--from source_repo] [--to target_repo]" > /dev/stderr
         return 1
     fi
 
@@ -71,6 +70,6 @@ create_pull_request()
 
     # fail otherwise as the link is unknown.
 
-    echo "Create pull requests link for remote ($remote) is not known!"
+    echo "Create pull requests link for remote ($remote) is not known!" > /dev/stderr
     return 2
 }

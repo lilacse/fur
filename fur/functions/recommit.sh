@@ -10,8 +10,7 @@ recommit()
     # aborts if the reset fail for any reason.
 
     if [ "$?" -ne "0" ]; then 
-        echo
-        echo "Failed to reset the last commit. See output above for more information."
+        echo "Failed to reset the last commit. See output above for more information." > /dev/stderr
         return 1
     fi
 

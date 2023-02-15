@@ -13,9 +13,8 @@ open_remote()
     options=$(getopt -a -u --longoptions "branch:" -- "" "$@")
 
     if [ "$?" -ne "0" ]; then 
-        echo
-        echo "Invalid arguments."
-        echo "usage: fur open-remote [--branch branch_override]"
+        echo "Invalid arguments." > /dev/stderr
+        echo "usage: fur open-remote [--branch branch_override]" > /dev/stderr
         return 1
     fi
 
@@ -45,7 +44,7 @@ open_remote()
 
         # conversion failed, hence the url is not handle-able. 
 
-        echo "Handling for origin url ($remote) is unknown."
+        echo "Handling for origin url ($remote) is unknown." > /dev/stderr
         return 2
     fi
 
