@@ -3,14 +3,14 @@
 . "./utilities/handle_link.sh"
 . "./utilities/process_remote_url.sh"
 
-# usage: fur pull-requests 
+# usage: fur <pull-requests | prs>
 # opens the pull requests page for the repository on the remote's website.
 
 pull_requests()
 {
     if [ "$#" -ne 0 ]; then 
         echo "Invalid arguments."
-        echo "usage: fur pull-requests"
+        echo "usage: fur <pull-requests | prs>"
         return 1
     fi
 
