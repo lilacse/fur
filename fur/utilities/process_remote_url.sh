@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# usage: process_remote_url [remote]
+# usage: process_remote_url <remote>
 # cleanup/converts remote urls. 
 
 process_remote_url()

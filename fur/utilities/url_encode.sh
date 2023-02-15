@@ -1,6 +1,7 @@
 #!/bin/sh
 
-# usage: url_encode [string]
+# usage: url_encode <string>
+# percent-encodes a string.
 
 url_encode()
 {

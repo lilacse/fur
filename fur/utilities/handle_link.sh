@@ -2,7 +2,8 @@
 
 . "./utilities/set_link_handler.sh"
 
-# usage: handle_link [link]
+# usage: handle_link <link>
+# opens the link in an appropriate program selected by a system utility (`start` on Windows, `xdg-open` on Linux).
 
 handle_link()
 {
