@@ -2,6 +2,7 @@
 
 . "./utilities/handle_link.sh"
 . "./utilities/process_remote_url.sh"
+. "./utilities/get_remote_url.sh"
 
 # usage: fur <create-pull-request | cpr> [--from source_repo] [--to target_repo]
 # opens the create pull request page for the repository on the remote's website.
@@ -32,10 +33,9 @@ create_pull_request()
         fi
     done
 
-    remote="$(git -C "$FUR_PWD" config --get remote.origin.url)"
+    remote="$(get_remote_url)"
 
-    if [ "$?" -eq "1" ]; then
-        echo "Origin URL not set for this repository."
+    if [ "$?" -ne "0" ]; then
         return 3
     fi
 
