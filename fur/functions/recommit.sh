@@ -5,11 +5,10 @@
 
 recommit()
 {
-    git -C "$FUR_PWD" reset --soft HEAD~1
+    if ! git -C "$FUR_PWD" reset --soft HEAD~1; then 
+    
+        # aborts if the reset fail for any reason.
 
-    # aborts if the reset fail for any reason.
-
-    if [ "$?" -ne "0" ]; then 
         echo "Failed to reset the last commit. See output above for more information." > /dev/stderr
         return 1
     fi

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. "./utilities/set_link_handler.sh"
+. "./fur/utilities/set_link_handler.sh"
 
 # usage: handle_link <link>
 # opens the link in an appropriate program selected by a system utility (`start` on Windows, `xdg-open` on Linux).
@@ -12,9 +12,8 @@ handle_link()
         return 1
     fi
 
-    set_link_handler
-
-    if [ "$?" -eq "0" ]; then 
+    # shellcheck disable=SC2119
+    if set_link_handler; then 
         $FUR_LINK_HANDLER "$1"
         return $?
     fi

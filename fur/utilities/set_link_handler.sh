@@ -21,9 +21,7 @@ set_link_handler()
 
     # use `start` on Windows
 
-    echo "$platform" | grep -Eq "^(MSYS)|(CYGWIN)|(MINGW(32)|(64))_NT"
-
-    if [ "$?" -eq "0" ]; then 
+    if echo "$platform" | grep -Eq "^(MSYS)|(CYGWIN)|(MINGW(32)|(64))_NT"; then 
         export FUR_LINK_HANDLER="start"
         return 0
     fi

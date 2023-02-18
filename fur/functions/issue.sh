@@ -1,8 +1,8 @@
 #!/bin/sh
 
-. "./utilities/handle_link.sh"
-. "./utilities/process_remote_url.sh"
-. "./utilities/get_remote_url.sh"
+. "./fur/utilities/handle_link.sh"
+. "./fur/utilities/process_remote_url.sh"
+. "./fur/utilities/get_remote_url.sh"
 
 # usage: fur <issue | task | bug | work-item> <issue_number>
 # opens the issue page for the given issue number for the repository on the remote's website.
@@ -15,9 +15,8 @@ issues()
         return 1
     fi
 
-    remote="$(get_remote_url)"
-
-    if [ "$?" -ne "0" ]; then
+    # shellcheck disable=SC2119
+    if ! remote="$(get_remote_url)"; then
         return 3
     fi
 
@@ -27,9 +26,7 @@ issues()
 
     # handle GitHub repo
 
-    echo "$remote" | grep -Eq "^https://github.com/.+$"
-
-    if [ "$?" -eq "0" ]; then 
+    if echo "$remote" | grep -Eq "^https://github.com/.+$"; then 
         issue_page=$(printf "%s/issues/%s" "$remote" "$1")
         handle_link "$issue_page"
         return $?
@@ -37,9 +34,7 @@ issues()
 
     # handle Azure Devops repo
 
-    echo "$remote" | grep -Eq "^https://dev.azure.com/"
-
-    if [ "$?" -eq "0" ]; then 
+    if echo "$remote" | grep -Eq "^https://dev.azure.com/"; then 
         issue_page=$(echo "$remote" | sed "s;/_git/.\+$;/_workitems/edit/$1/;")
         handle_link "$issue_page"
         return $?

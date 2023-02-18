@@ -1,22 +1,21 @@
 #!/bin/sh
 
-. "./utilities/handle_link.sh"
-. "./utilities/process_remote_url.sh"
-. "./utilities/get_remote_url.sh"
+. "./fur/utilities/handle_link.sh"
+. "./fur/utilities/process_remote_url.sh"
+. "./fur/utilities/get_remote_url.sh"
 
 # usage: fur <create-pull-request | cpr> [--from source_repo] [--to target_repo]
 # opens the create pull request page for the repository on the remote's website.
 
 create_pull_request()
 {
-    options=$(getopt -a -u --longoptions "from:,to:" -- "" "$@")
-
-    if [ "$?" -ne "0" ]; then 
+    if ! options=$(getopt -a -u --longoptions "from:,to:" -- "" "$@"); then 
         echo "Invalid arguments." > /dev/stderr
         echo "usage: fur <create-pull-request | cpr> [--from source_repo] [--to target_repo]" > /dev/stderr
         return 1
     fi
 
+    # shellcheck disable=SC2086
     set -- $options
 
     while true; do 
@@ -32,9 +31,8 @@ create_pull_request()
         fi
     done
 
-    remote="$(get_remote_url)"
-
-    if [ "$?" -ne "0" ]; then
+    # shellcheck disable=SC2119
+    if ! remote="$(get_remote_url)"; then
         return 3
     fi
 
@@ -50,9 +48,7 @@ create_pull_request()
 
     # handle GitHub repo
 
-    echo "$remote" | grep -Eq "^https://github.com/.+$"
-
-    if [ "$?" -eq "0" ]; then 
+    if echo "$remote" | grep -Eq "^https://github.com/.+$"; then 
         create_pr_page=$(printf "%s/compare/%s...%s" "$remote" "$to_repo" "$from_repo")
         handle_link "$create_pr_page"
         return $?
@@ -60,9 +56,7 @@ create_pull_request()
 
     # handle Azure Devops repo
 
-    echo "$remote" | grep -Eq "^https://dev.azure.com/.+/_git/.+$" 
-
-    if [ "$?" -eq "0" ]; then 
+    if echo "$remote" | grep -Eq "^https://dev.azure.com/.+/_git/.+$"; then 
         create_pr_page=$(printf "%s/pullrequestcreate?sourceRef=%s&targetRef=%s" "$remote" "$from_repo" "$to_repo")
         handle_link "$create_pr_page"
         return $?

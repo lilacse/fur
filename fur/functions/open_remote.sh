@@ -1,23 +1,22 @@
 #!/bin/sh
 
-. "./utilities/handle_link.sh"
-. "./utilities/process_remote_url.sh"
-. "./utilities/url_encode.sh"
-. "./utilities/get_remote_url.sh"
+. "./fur/utilities/handle_link.sh"
+. "./fur/utilities/process_remote_url.sh"
+. "./fur/utilities/url_encode.sh"
+. "./fur/utilities/get_remote_url.sh"
 
 # usage: fur open-remote [--branch branch_override]
 # opens the repository's remote url.
 
 open_remote()
 {
-    options=$(getopt -a -u --longoptions "branch:" -- "" "$@")
-
-    if [ "$?" -ne "0" ]; then 
+    if ! options=$(getopt -a -u --longoptions "branch:" -- "" "$@"); then 
         echo "Invalid arguments." > /dev/stderr
         echo "usage: fur open-remote [--branch branch_override]" > /dev/stderr
         return 1
     fi
 
+    # shellcheck disable=SC2086
     set -- $options
 
     while true; do 
@@ -30,17 +29,14 @@ open_remote()
         fi
     done
 
-    remote="$(get_remote_url)"
-
-    if [ "$?" -ne "0" ]; then
+    # shellcheck disable=SC2119
+    if ! remote="$(get_remote_url)"; then
         return 3
     fi
 
     # cleanup/convert origin url beforehand.
 
-    remote=$(process_remote_url "$remote")
-
-    if [ "$?" -ne "0" ]; then 
+    if ! remote=$(process_remote_url "$remote"); then 
 
         # conversion failed, hence the url is not handle-able. 
 
@@ -56,17 +52,13 @@ open_remote()
 
     # GitHub's url with branch.
 
-    echo "$remote" | grep -Eq "^https://github.com/"
-
-    if [ "$?" -eq "0" ]; then 
+    if echo "$remote" | grep -Eq "^https://github.com/"; then 
         remote="$(printf "%s/tree/%s" "$remote" "$branch")"
     fi
 
     # Azure Devops' url with branch
 
-    echo "$remote" | grep -Eq "^https://dev.azure.com/"
-
-    if [ "$?" -eq "0" ]; then 
+    if echo "$remote" | grep -Eq "^https://dev.azure.com/"; then 
         encoded_branch=$(url_encode "$branch")
         remote="$(printf "%s?version=GB%s" "$remote" "$encoded_branch")"
     fi

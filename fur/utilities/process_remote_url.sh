@@ -12,15 +12,11 @@ process_remote_url()
 
     # check if is http(s) remote 
     
-    echo "$1" | grep -Eq "^https?://"
-
-    if [ "$?" -eq "0" ]; then 
+    if echo "$1" | grep -Eq "^https?://"; then 
 
         # strip off `.git` ending from GitHub's origin url. 
 
-        echo "$1" | grep -Eq "^https://github.com/.+.git$"
-
-        if [ "$?" -eq "0" ]; then 
+        if echo "$1" | grep -Eq "^https://github.com/.+.git$"; then 
             converted_remote=$(echo "$1" | sed 's;\.git$;;')
             echo "$converted_remote"
             return 0
@@ -28,9 +24,7 @@ process_remote_url()
 
         # strip off username from Azure Devops's origin url.
 
-        echo "$1" | grep -Eq "^https://.+@dev.azure.com/.+/_git/.+$" 
-
-        if [ "$?" -eq "0" ]; then 
+        if echo "$1" | grep -Eq "^https://.+@dev.azure.com/.+/_git/.+$"; then 
             converted_remote=$(echo "$1" | sed 's;https://.\+@;https://;')
             echo "$converted_remote"
             return 0
@@ -42,9 +36,7 @@ process_remote_url()
 
     # GitHub's 
 
-    echo "$1" | grep -Eq "^git@github.com:.+/.+\.git$"
-
-    if [ "$?" -eq "0" ]; then 
+    if echo "$1" | grep -Eq "^git@github.com:.+/.+\.git$"; then 
         converted_remote=$(echo "$1" | sed "s;git@github.com:;https://github.com/;")
         converted_remote=$(echo "$converted_remote" | sed "s;.git$;;")
         echo "$converted_remote"

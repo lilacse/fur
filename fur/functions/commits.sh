@@ -1,23 +1,22 @@
 #!/bin/sh
 
-. "./utilities/handle_link.sh"
-. "./utilities/process_remote_url.sh"
-. "./utilities/get_remote_url.sh"
-. "./utilities/url_encode.sh"
+. "./fur/utilities/handle_link.sh"
+. "./fur/utilities/process_remote_url.sh"
+. "./fur/utilities/get_remote_url.sh"
+. "./fur/utilities/url_encode.sh"
 
 # usage: fur <commits> [--branch branch_override]
 # opens the commits page for the specified branch of the repository on the remote's website.
 
 commits()
 {
-    options=$(getopt -a -u --longoptions "branch:" -- "" "$@")
-
     if ! options=$(getopt -a -u --longoptions "branch:" -- "" "$@"); then 
         echo "Invalid arguments." > /dev/stderr
         echo "usage: fur commits [--branch branch_override]" > /dev/stderr
         return 1
     fi
 
+    # shellcheck disable=SC2086
     set -- $options
 
     while true; do 
@@ -30,7 +29,8 @@ commits()
         fi
     done
 
-    if ! remote="$(get_remote_url)" ; then
+    # shellcheck disable=SC2119
+    if ! remote="$(get_remote_url)"; then
         return 3
     fi
 
