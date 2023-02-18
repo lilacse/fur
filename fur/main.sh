@@ -61,6 +61,12 @@ main()
             pull_request "$@"
             exit $?
             ;;
+        "commits")
+            . "./functions/commits.sh"
+            shift 1
+            commits "$@"
+            exit $?
+            ;;
         *)
             echo "Option not understood: $1" > /dev/stderr
             exit 2
