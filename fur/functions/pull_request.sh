@@ -1,8 +1,8 @@
 #!/bin/sh
 
-. "./utilities/handle_link.sh"
-. "./utilities/process_remote_url.sh"
-. "./utilities/get_remote_url.sh"
+. "./fur/utilities/handle_link.sh"
+. "./fur/utilities/process_remote_url.sh"
+. "./fur/utilities/get_remote_url.sh"
 
 # usage: fur <pull-request | pr> <pull_request_number>
 # opens the pull request page for the given pull request number for the repository on the remote's website.
@@ -15,9 +15,8 @@ pull_request()
         return 1
     fi
 
-    remote="$(get_remote_url)"
-
-    if [ "$?" -ne "0" ]; then
+    # shellcheck disable=SC2119
+    if ! remote="$(get_remote_url)"; then
         return 3
     fi
 
@@ -27,9 +26,7 @@ pull_request()
 
     # handle GitHub repo
 
-    echo "$remote" | grep -Eq "^https://github.com/.+$"
-
-    if [ "$?" -eq "0" ]; then 
+    if echo "$remote" | grep -Eq "^https://github.com/.+$"; then 
         pr_page=$(printf "%s/pull/%s" "$remote" "$1")
         handle_link "$pr_page"
         return $?

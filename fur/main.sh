@@ -4,9 +4,7 @@ main()
 {
     # check if folder is a git repo
 
-    git -C "$FUR_PWD" rev-parse > /dev/null 2>&1
-
-    if [ "$?" -ne "0" ]; then 
+    if ! git -C "$FUR_PWD" rev-parse > /dev/null 2>&1; then 
         echo "Folder \"$FUR_PWD\" is not a git repo!" > /dev/stderr
         exit 3
     fi
@@ -20,49 +18,49 @@ main()
 
     case "$1" in 
         "open-remote")
-            . "./functions/open_remote.sh"
+            . "./fur/functions/open_remote.sh"
             shift 1
             open_remote "$@"
             exit $?
             ;;
         "recommit")
-            . "./functions/recommit.sh"
+            . "./fur/functions/recommit.sh"
             shift 1
             recommit "$@"
             exit $?
             ;;
         "pull-requests" | "prs")
-            . "./functions/pull_requests.sh"
+            . "./fur/functions/pull_requests.sh"
             shift 1
             pull_requests "$@"
             exit $?
             ;;
         "create-pull-request" | "cpr")
-            . "./functions/create_pull_request.sh"
+            . "./fur/functions/create_pull_request.sh"
             shift 1
             create_pull_request "$@"
             exit $?
             ;;
         "issues" | "tasks" | "bugs" | "work-items")
-            . "./functions/issues.sh"
+            . "./fur/functions/issues.sh"
             shift 1
             issues "$@"
             exit $?
             ;;
         "issue" | "task" | "bug" | "work-item")
-            . "./functions/issue.sh"
+            . "./fur/functions/issue.sh"
             shift 1
             issues "$@"
             exit $?
             ;;
         "pull-request" | "pr")
-            . "./functions/pull_request.sh"
+            . "./fur/functions/pull_request.sh"
             shift 1
             pull_request "$@"
             exit $?
             ;;
         "commits")
-            . "./functions/commits.sh"
+            . "./fur/functions/commits.sh"
             shift 1
             commits "$@"
             exit $?

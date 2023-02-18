@@ -1,9 +1,8 @@
 #!/bin/sh
 
-FUR_PWD="$PWD"
+export FUR_PWD="$PWD"
 
-cd "$(dirname $(realpath $0))/fur/"
-
-. ./main.sh
-
-main "$@"
+if cd "$(dirname "$(realpath "$0")")/"; then 
+    . ./fur/main.sh
+    main "$@"
+fi
