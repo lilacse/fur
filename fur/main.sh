@@ -65,6 +65,12 @@ main()
             commits "$@"
             exit $?
             ;;
+        "nuke")
+            . "./fur/functions/nuke.sh"
+            shift 1
+            nuke "$@"
+            exit $?
+            ;;
         *)
             echo "Option not understood: $1" > /dev/stderr
             exit 2
