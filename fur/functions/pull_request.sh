@@ -32,6 +32,14 @@ pull_request()
         return $?
     fi
 
+    # handle Azure Devops repo
+
+    if echo "$remote" | grep -Eq "^https://dev.azure.com/"; then 
+        pr_page=$(printf "%s/pullrequest/%s" "$remote" "$1")
+        handle_link "$pr_page"
+        return $?
+    fi
+
     # fail otherwise as the link is unknown.
 
     echo "Pull request link for remote ($remote) is not known!" > /dev/stderr
