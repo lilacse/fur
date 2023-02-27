@@ -21,11 +21,9 @@ pull_requests()
     fi
 
     # cleanup/convert origin url beforehand.
-
     remote=$(process_remote_url "$remote")
 
     # handle GitHub repo
-
     if echo "$remote" | grep -Eq "^https://github.com/.+$"; then 
         pr_page=$(printf "%s/pulls" "$remote")
         handle_link "$pr_page"
@@ -33,7 +31,6 @@ pull_requests()
     fi
 
     # handle Azure Devops repo
-
     if echo "$remote" | grep -Eq "^https://dev.azure.com/.+/_git/.+$"; then 
         pr_page=$(printf "%s/pullrequests?_a=mine" "$remote")
         handle_link "$pr_page"
@@ -41,7 +38,6 @@ pull_requests()
     fi
 
     # fail otherwise as the link is unknown.
-
     echo "Pull requests link for remote ($remote) is not known!" > /dev/stderr
     return 2
 }

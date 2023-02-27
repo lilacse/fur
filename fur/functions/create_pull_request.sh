@@ -37,17 +37,14 @@ create_pull_request()
     fi
 
     # cleanup/convert origin url beforehand.
-
     remote=$(process_remote_url "$remote")
 
     # sets from_repo to current repo by default
-
     if [ -z "$from_repo" ]; then 
         from_repo=$(git -C "$FUR_PWD" symbolic-ref --short HEAD)
     fi
 
     # handle GitHub repo
-
     if echo "$remote" | grep -Eq "^https://github.com/.+$"; then 
         create_pr_page=$(printf "%s/compare/%s...%s" "$remote" "$to_repo" "$from_repo")
         handle_link "$create_pr_page"
@@ -55,7 +52,6 @@ create_pull_request()
     fi
 
     # handle Azure Devops repo
-
     if echo "$remote" | grep -Eq "^https://dev.azure.com/.+/_git/.+$"; then 
         create_pr_page=$(printf "%s/pullrequestcreate?sourceRef=%s&targetRef=%s" "$remote" "$from_repo" "$to_repo")
         handle_link "$create_pr_page"
@@ -63,7 +59,6 @@ create_pull_request()
     fi
 
     # fail otherwise as the link is unknown.
-
     echo "Create pull requests link for remote ($remote) is not known!" > /dev/stderr
     return 2
 }
