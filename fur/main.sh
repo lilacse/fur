@@ -71,6 +71,12 @@ main()
             nuke "$@"
             exit $?
             ;;
+        "create-snapshot")
+            . "./fur/functions/create_snapshot.sh"
+            shift 1
+            create_snapshot "$@"
+            exit $?
+            ;;
         *)
             echo "Option not understood: $1" > /dev/stderr
             exit 2
