@@ -34,30 +34,23 @@ open_remote()
         return 3
     fi
 
-    # cleanup/convert origin url beforehand.
-
+    # abort if conversion failed, since the url is not handle-able. 
     if ! remote=$(process_remote_url "$remote"); then 
-
-        # conversion failed, hence the url is not handle-able. 
-
         echo "Handling for origin url ($remote) is unknown." > /dev/stderr
         return 2
     fi
 
     # add branch to url
-
     if [ -z "$branch" ]; then 
         branch=$(git -C "$FUR_PWD" symbolic-ref --short HEAD)
     fi
 
     # GitHub's url with branch.
-
     if echo "$remote" | grep -Eq "^https://github.com/"; then 
         remote="$(printf "%s/tree/%s" "$remote" "$branch")"
     fi
 
     # Azure Devops' url with branch
-
     if echo "$remote" | grep -Eq "^https://dev.azure.com/"; then 
         encoded_branch=$(url_encode "$branch")
         remote="$(printf "%s?version=GB%s" "$remote" "$encoded_branch")"

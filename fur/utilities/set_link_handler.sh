@@ -13,21 +13,18 @@ set_link_handler()
     platform=$(uname)
 
     # use `xdg-open` on Linux
-
     if [ "$platform" = "Linux" ]; then 
         export FUR_LINK_HANDLER="xdg-open"
         return 0
     fi
 
     # use `start` on Windows
-
     if echo "$platform" | grep -Eq "^(MSYS)|(CYGWIN)|(MINGW(32)|(64))_NT"; then 
         export FUR_LINK_HANDLER="start"
         return 0
     fi
 
     # return error for other platforms.
-
     echo "No command known to handle links with platform \"$platform\"" > /dev/stderr
     return 1
 }

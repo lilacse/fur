@@ -21,11 +21,9 @@ issues()
     fi
 
     # cleanup/convert origin url beforehand.
-
     remote=$(process_remote_url "$remote")
 
     # handle GitHub repo
-
     if echo "$remote" | grep -Eq "^https://github.com/.+$"; then 
         issue_page=$(printf "%s/issues/%s" "$remote" "$1")
         handle_link "$issue_page"
@@ -33,7 +31,6 @@ issues()
     fi
 
     # handle Azure Devops repo
-
     if echo "$remote" | grep -Eq "^https://dev.azure.com/"; then 
         issue_page=$(echo "$remote" | sed "s;/_git/.\+$;/_workitems/edit/$1/;")
         handle_link "$issue_page"
@@ -41,7 +38,6 @@ issues()
     fi
 
     # fail otherwise as the link is unknown.
-
     echo "Issue link for remote ($remote) is not known!" > /dev/stderr
     return 2
 }

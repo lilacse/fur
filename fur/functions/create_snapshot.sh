@@ -11,10 +11,8 @@ create_snapshot()
         return 1
     fi
 
+     # aborts if the repo is not on a named branch
     if ! current_branch=$(git symbolic-ref --short HEAD); then 
-
-        # aborts if the repo is not on a named branch
-
         echo "'create-snapshot' can only be used while on a branch." > /dev/stderr
         return 3
     fi
@@ -24,18 +22,14 @@ create_snapshot()
 
     git -C "$FUR_PWD" add . 
 
+    # aborts if the commit fail for any reason.
     if ! git -C "$FUR_PWD" -c commit.gpgsign=false commit -m "$commit_message" > /dev/null 2>&1; then 
-    
-        # aborts if the commit fail for any reason.
-
         echo "Failed to create a commit for 'create-snapshot'. See output above for more information." > /dev/stderr
         return 2
     fi
 
+    # aborts if the branch creation fail for any reason.
     if ! git -C "$FUR_PWD" switch -c "$snapshot_name" > /dev/null 2>&1; then 
-    
-        # aborts if the branch creation fail for any reason.
-
         echo "Failed to create a branch for 'create-snapshot'. See output above for more information." > /dev/stderr
         return 3
     fi
