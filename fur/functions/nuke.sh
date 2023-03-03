@@ -16,7 +16,7 @@ nuke()
     git -C "$FUR_PWD" add . 
 
     # aborts if the commit fail for any reason.
-    if ! git -C "$FUR_PWD" -c commit.gpgsign=false commit -m "$commit_message" > /dev/null 2>&1; then 
+    if ! git -C "$FUR_PWD" -c commit.gpgsign=false commit -m "$commit_message"; then 
         echo "Failed to create a temporary commit for 'nuke'. See output above for more information." > /dev/stderr
         return 2
     fi
