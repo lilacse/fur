@@ -12,7 +12,7 @@ create_snapshot()
     fi
 
      # aborts if the repo is not on a named branch
-    if ! current_branch=$(git symbolic-ref --short HEAD); then 
+    if ! current_branch=$(git -C "$FUR_PWD" symbolic-ref --short HEAD); then 
         echo "'create-snapshot' can only be used while on a branch." > /dev/stderr
         return 3
     fi
