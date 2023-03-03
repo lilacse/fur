@@ -3,7 +3,7 @@
 main()
 {
     # check if folder is a git repo
-    if ! git -C "$FUR_PWD" rev-parse > /dev/null 2>&1; then 
+    if ! git -C "$FUR_PWD" rev-parse; then 
         echo "Folder \"$FUR_PWD\" is not a git repo!" > /dev/stderr
         exit 3
     fi
