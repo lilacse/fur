@@ -5,7 +5,7 @@
 . "./fur/utilities/get_remote_url.sh"
 . "./fur/utilities/url_encode.sh"
 
-# usage: fur <commits> [--branch branch_override]
+# usage: fur commits [--branch branch_override]
 # opens the commits page for the specified branch of the repository on the remote's website.
 
 commits()
