@@ -76,6 +76,12 @@ main()
             create_snapshot "$@"
             exit $?
             ;;
+        "help") 
+            . "./fur/functions/help.sh"
+            shift 1 
+            help "$@"
+            exit $?
+            ;;
         *)
             echo "Option not understood: $1" > /dev/stderr
             exit 2
