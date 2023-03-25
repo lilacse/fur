@@ -9,6 +9,6 @@ append_command_list "$command" "$aliases"
 
 open_remote_help()
 {
-    echo "usage: fur open-remote [--branch branch_override]"
+    echo "usage: fur open-remote [--branch | -b branch_override]"
     echo "opens the repository's remote url."
 }

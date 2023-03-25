@@ -10,9 +10,9 @@
 
 commits()
 {
-    if ! options=$(getopt -a -u --longoptions "branch:" -- "" "$@"); then 
+    if ! options=$(getopt -a -u --longoptions "branch:" -- "b:" "$@"); then 
         echo "Invalid arguments." > /dev/stderr
-        echo "usage: fur commits [--branch branch_override]" > /dev/stderr
+        echo "usage: fur commits [--branch | -b branch_override]" > /dev/stderr
         return 1
     fi
 
@@ -20,7 +20,7 @@ commits()
     set -- $options
 
     while true; do 
-        if [ "$1" = "--branch" ]; then 
+        if [ "$1" = "--branch" ] || [ "$1" = "-b" ]; then 
             branch="$2"
             shift 2
         elif [ "$1" = "--" ]; then 
