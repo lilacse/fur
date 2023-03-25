@@ -26,5 +26,7 @@ nuke()
         return 2
     fi
 
+    git clean -fdx
+
     return 0
 }
