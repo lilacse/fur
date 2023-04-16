@@ -5,11 +5,26 @@
 
 nuke()
 {
-    if [ "$#" -ne 0 ]; then
+    if ! options=$(getopt -a -u --longoptions "clean" -- "c" "$@"); then
         echo "Invalid arguments." > /dev/stderr
-        echo "usage: fur nuke" > /dev/stderr
+        echo "usage: fur nuke [--clean | -c]" > /dev/stderr
         return 1
     fi
+
+    # shellcheck disable=SC2086
+    set -- $options
+
+    is_clean=false
+
+    while true; do 
+        if [ "$1" = "--clean" ] || [ "$1" = "-c" ]; then 
+            is_clean=true
+            shift 
+        elif [ "$1" = "--" ]; then 
+            shift
+            break;
+        fi
+    done
 
     commit_message="fur: 'nuke' command on $(date)"
 
@@ -26,7 +41,9 @@ nuke()
         return 2
     fi
 
-    git clean -fdx
+    if [ $is_clean ]; then 
+        git clean -fdx
+    fi
 
     return 0
 }
