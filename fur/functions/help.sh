@@ -29,7 +29,7 @@ help()
         return 0
     fi
 
-    if ! echo "$commands_list" | grep -Eq "^$1$"; then 
+    if ! echo "$commands_list" | grep -Eq "^($1 )|($1$)"; then 
         echo "Command not found: $1" > /dev/stderr
         return 2
     fi
