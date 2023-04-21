@@ -82,6 +82,12 @@ main()
             help "$@"
             exit $?
             ;;
+        "update-branch" | "ub")
+            . "./fur/functions/update_branch.sh"
+            shift 1
+            update_branch "$@"
+            exit $?
+            ;;
         *)
             echo "Option not understood: $1" > /dev/stderr
             exit 2
