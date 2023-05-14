@@ -4,7 +4,7 @@
 
 <br>
 
-**Note**: `fur` is going to be rewritten in Python! Check out the repo branches to find the respective branch. 
+**Note**: This is the Python rewrite branch. Things might (or _should_) not work. 
 
 <br>
 
