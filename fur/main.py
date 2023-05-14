@@ -14,6 +14,15 @@ def main():
         print_error("No arguments provided!")
         exit(2)
 
+    function = args[0]
+    function_args = args[1:]
+
+    match function:
+        case "open-remote":
+            from functions.open_remote import open_remote
+
+            open_remote()
+
 
 if __name__ == "__main__":
     main()
