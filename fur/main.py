@@ -1,11 +1,14 @@
 #!/usr/bin/python3
 
 import sys
+import os
 from git import is_in_git_repo
 from unified_print import print_error
 
 
 def main():
+    os.chdir(os.environ.get("FUR_PWD"))
+
     if not is_in_git_repo():
         exit(1)
 
