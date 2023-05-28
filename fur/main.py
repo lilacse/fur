@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 
-import sys
 import os
+import sys
+
 from git import is_in_git_repo
 from unified_print import print_error
 
@@ -24,7 +25,7 @@ def main():
         case "open-remote":
             from functions.open_remote import open_remote
 
-            open_remote()
+            open_remote(function_args)
 
 
 if __name__ == "__main__":
