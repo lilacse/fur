@@ -1,6 +1,6 @@
 import re
 
-from . import get_remote_url
+from git.remote.get_remote_url import get_remote_url
 
 
 def get_remote_url_https(branch: str = None) -> str:
