@@ -24,8 +24,13 @@ def main():
     match function:
         case "open-remote":
             from functions.open_remote import open_remote
-
             open_remote(function_args)
+        case "commits":
+            from functions.commits import commits
+            commits(function_args)
+        case _:
+            print_error(f"Unknown function: `{function}`")
+            return
 
 
 if __name__ == "__main__":
