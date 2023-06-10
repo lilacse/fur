@@ -6,7 +6,7 @@ from link_handler import open_link
 
 
 def commits(args: []):
-    parser = argparse.ArgumentParser(prog="open-remote",
+    parser = argparse.ArgumentParser(prog="commits",
                                      description="opens the current repo's commit page in it's remote origin's website")
     parser.add_argument("-b", "--branch", type=str, help="the branch to open, defaults to the current branch")
 
