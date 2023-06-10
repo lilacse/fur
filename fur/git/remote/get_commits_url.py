@@ -12,8 +12,8 @@ def get_commits_url(branch: str = None) -> str:
 
 def __convert_to_commits_url(url: str) -> str:
     # GitHub's url with branch
-    if re.match(r"https:\/\/github.com\/[^/]+\/[^/]+\/tree\/.+$", url):
-        url = re.sub(r"^https:\/\/github.com\/([^/]+)\/([^/]+)\/tree\/",
+    if re.match(r"https://github.com/[^/]+/[^/]+/tree/.+$", url):
+        url = re.sub(r"^https://github.com/([^/]+)/([^/]+)/tree/",
                      r"https://github.com/\1/\2/commits/",
                      url)
     else:

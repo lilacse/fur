@@ -28,7 +28,7 @@ def __cleanup_https_remote_url(url: str) -> str:
     url = url.strip()
 
     # remove .git suffix from GitHub urls
-    if re.match(r"https:\/\/github.com\/[^/]+\/[^/]+\.git", url):
+    if re.match(r"https://github.com/[^/]+/[^/]+\.git", url):
         url = url.removesuffix(".git")
 
     return url
@@ -36,7 +36,7 @@ def __cleanup_https_remote_url(url: str) -> str:
 
 def __add_branch_to_url(url: str, branch: str) -> str:
     # GitHub's url
-    if re.match(r"https:\/\/github.com\/[^/]+\/[^/]+$", url):
+    if re.match(r"https://github.com/[^/]+/[^/]+$", url):
         url = url + f"/tree/{branch}"
 
     return url
