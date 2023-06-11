@@ -28,6 +28,9 @@ def main():
         case "commits":
             from functions.commits import commits
             commits(function_args)
+        case "issues":
+            from functions.issues import issues
+            issues(function_args)
         case _:
             print_error(f"Unknown function: `{function}`")
             return
