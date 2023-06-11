@@ -16,6 +16,11 @@ def __convert_to_commits_url(url: str) -> str:
         url = re.sub(r"^https://github.com/([^/]+)/([^/]+)/tree/",
                      r"https://github.com/\1/\2/commits/",
                      url)
+    # Azure Devops's url with branch
+    elif re.match(r"^https://dev.azure.com/.+/_git/.+\?version=GB.+$", url):
+        url = re.sub(r"^(https://dev.azure.com/.+/_git/.+)\?version=GB(.+)$",
+                     r"\1/commits?itemVersion=GB\2",
+                     url)
     else:
         raise RuntimeError(f"Conversion of url `{url}` to a commits url is not known")
 
