@@ -6,4 +6,4 @@ def get_current_branch():
         ["git", "symbolic-ref", "--short", "HEAD"], capture_output=True, text=True
     )
     if git_command.returncode == 0:
-        return git_command.stdout
+        return git_command.stdout.strip()

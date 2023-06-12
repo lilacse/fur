@@ -49,7 +49,7 @@ def __add_branch_to_url(url: str, branch: str) -> str:
         url = url + f"/tree/{branch}"
 
     # Azure Devops's url
-    elif re.match(r"^https://.+@dev.azure.com/.+/_git/.+$", url):
+    elif re.match(r"^https://dev.azure.com/.+/_git/.+$", url):
         encoded_branch = urllib.parse.quote_plus(branch)
         url = url + f"?version=GB{encoded_branch}"
 
