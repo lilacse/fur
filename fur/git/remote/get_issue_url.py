@@ -21,6 +21,6 @@ def __convert_to_issue_url(url: str, issue_number: str) -> str:
                      url)
         url += f"{issue_number}/"
     else:
-        raise RuntimeError(f"Conversion of url `{url}` to a commits url is not known")
+        raise RuntimeError(f"Conversion of url `{url}` to an issue url is not known")
 
     return url

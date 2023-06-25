@@ -20,6 +20,6 @@ def __convert_to_issues_url(url: str) -> str:
                      r"\1/_workitems",
                      url)
     else:
-        raise RuntimeError(f"Conversion of url `{url}` to a commits url is not known")
+        raise RuntimeError(f"Conversion of url `{url}` to an issues url is not known")
 
     return url

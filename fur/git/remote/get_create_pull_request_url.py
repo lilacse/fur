@@ -18,6 +18,6 @@ def __convert_to_create_pull_request_url(url: str, from_branch: str = None, to_b
     elif re.match(r"^https://dev.azure.com/.+/_git/.+$", url):
         url += f"/pullrequestcreate?sourceRef={from_branch}&targetRef={to_branch}"
     else:
-        raise RuntimeError(f"Conversion of url `{url}` to a commits url is not known")
+        raise RuntimeError(f"Conversion of url `{url}` to a create pull request url is not known")
 
     return url

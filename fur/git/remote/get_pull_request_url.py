@@ -18,6 +18,6 @@ def __convert_to_pull_request_url(url: str, pr_number: str) -> str:
     elif re.match(r"^https://dev.azure.com/.+/_git/.+$", url):
         url += f"/pullrequest/{pr_number}"
     else:
-        raise RuntimeError(f"Conversion of url `{url}` to a commits url is not known")
+        raise RuntimeError(f"Conversion of url `{url}` to a pull request url is not known")
 
     return url
