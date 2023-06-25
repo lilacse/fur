@@ -40,6 +40,9 @@ def main():
         case "pull-request" | "pr":
             from functions.pull_request import pull_request
             pull_request(function_args)
+        case "create-pull-request" | "cpr":
+            from functions.create_pull_request import create_pull_request
+            create_pull_request(function_args)
         case _:
             print_error(f"Unknown function: `{function}`")
             return
