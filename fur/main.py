@@ -31,6 +31,9 @@ def main():
         case "issues":
             from functions.issues import issues
             issues(function_args)
+        case "issue" | "task" | "bug" | "ticket" | "work-item":
+            from functions.issue import issue
+            issue(function_args)
         case "pull-requests" | "prs":
             from functions.pull_requests import pull_requests
             pull_requests(function_args)
