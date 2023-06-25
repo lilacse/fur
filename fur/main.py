@@ -4,6 +4,7 @@ import os
 import sys
 
 from git import is_in_git_repo
+from help import print_help
 from unified_print import print_error
 
 
@@ -16,6 +17,7 @@ def main():
     args = sys.argv[1:]
     if len(args) == 0:
         print_error("No arguments provided!")
+        print_help()
         exit(2)
 
     function = args[0]
@@ -43,8 +45,11 @@ def main():
         case "create-pull-request" | "cpr":
             from functions.create_pull_request import create_pull_request
             create_pull_request(function_args)
+        case "help" | "-h":
+            print_help()
         case _:
             print_error(f"Unknown function: `{function}`")
+            print_help()
             return
 
 
