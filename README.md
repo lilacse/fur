@@ -2,10 +2,6 @@
 
 <br>
 
-**Note**: This is the Python rewrite branch. Things might (or _should_) not work.
-
-<br>
-
 `fur` is a utility to easily perform actions related to Git repos hosted online, such as (and not limited to) opening
 your repo in a browser or jump directly to the PR creating page.
 
