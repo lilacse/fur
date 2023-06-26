@@ -8,4 +8,4 @@ def open_link(link: str):
         # redirect all stderr output in this case. 
         subprocess.run(f"2>/dev/null 1>&2 xdg-open '{link}'", shell=True)
     elif platform == "win32":
-        subprocess.run(["start", link], shell=True)
+        subprocess.run(["start", link.replace("&", "^&")], shell=True)
