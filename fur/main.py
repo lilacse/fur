@@ -30,7 +30,7 @@ def main():
         case "commits":
             from functions.commits import commits
             commits(function_args)
-        case "issues":
+        case "issues" | "task" | "bugs" | "tickets" | "work-items":
             from functions.issues import issues
             issues(function_args)
         case "issue" | "task" | "bug" | "ticket" | "work-item":
