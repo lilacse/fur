@@ -4,13 +4,15 @@ import urllib.parse
 from git.remote.get_remote_url import get_remote_url
 
 
-def get_remote_url_https(branch: str = None) -> str:
+def get_remote_url_https(branch: str = None, file_path: str = None) -> str:
     remote_url = get_remote_url()
     remote_url = __convert_to_https_url(remote_url)
     remote_url = __cleanup_https_remote_url(remote_url)
 
     if branch is not None:
         remote_url = __add_branch_to_url(remote_url, branch)
+    if file_path is not None:
+        remote_url = __add_file_path_to_url(remote_url, file_path)
 
     return remote_url
 
@@ -52,5 +54,19 @@ def __add_branch_to_url(url: str, branch: str) -> str:
     elif re.match(r"^https://dev.azure.com/.+/_git/.+$", url):
         encoded_branch = urllib.parse.quote_plus(branch)
         url = url + f"?version=GB{encoded_branch}"
+
+    return url
+
+
+def __add_file_path_to_url(url: str, file_path: str) -> str:
+    # GitHub's url
+    if re.match(r"^https://github.com/[^/]+/[^/]+/.+$", url):
+        encoded_file_path = urllib.parse.quote_plus(file_path)
+        url = url + f"/{encoded_file_path}"
+
+    # Azure Devops's url
+    elif re.match(r"^https://dev.azure.com/.+/_git/.+$", url):
+        encoded_file_path = urllib.parse.quote_plus(f"/{file_path}")
+        url = url + f"&path={encoded_file_path}"
 
     return url

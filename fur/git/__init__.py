@@ -1,2 +1,4 @@
 from .get_current_branch import get_current_branch
+from .get_relative_file_path import get_relative_file_path
+from .get_repo_root_path import get_repo_root_path
 from .is_in_git_repo import is_in_git_repo
