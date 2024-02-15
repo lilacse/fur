@@ -14,6 +14,9 @@ def __convert_to_branches_url(url: str) -> str:
     # GitHub's url
     if re.match(r"https://github.com/[^/]+/[^/]+$", url):
         url = url + "/branches"
+    # Azure Devops's url
+    elif re.match(r"^https://dev.azure.com/.+/_git/.+$", url):
+        url = url + "/branches"
     else:
         raise RuntimeError(f"Conversion of url `{url}` to an issues url is not known")
 
