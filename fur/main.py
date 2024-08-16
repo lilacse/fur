@@ -27,6 +27,9 @@ def main():
         case "open-remote":
             from functions.open_remote import open_remote
             open_remote(function_args)
+        case "commit":
+            from functions.commit import commit
+            commit(function_args)
         case "commits":
             from functions.commits import commits
             commits(function_args)

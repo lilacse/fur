@@ -5,6 +5,7 @@ def print_help():
     print("""
     Available functions: 
     open-remote
+    commit
     commits
     issues
     issue (aliases: task, bug, ticket, work-item)

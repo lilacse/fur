@@ -1,3 +1,4 @@
+from .get_commit_hash import get_commit_hash
 from .get_current_branch import get_current_branch
 from .get_relative_file_path import get_relative_file_path
 from .get_repo_root_path import get_repo_root_path
