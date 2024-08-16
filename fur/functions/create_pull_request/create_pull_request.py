@@ -7,7 +7,7 @@ from link_handler import open_link
 
 def create_pull_request(args: []):
     parser = argparse.ArgumentParser(prog="create-pull-request | cpr",
-                                     description="opens the current repo's create pull request page in it's remote "
+                                     description="opens the current repo's create pull request page in its remote "
                                                  "origin's website")
     parser.add_argument("-f", "--from", dest="from_branch", type=str, help="the branch to merge from, defaults to the "
                                                                            "current branch")
