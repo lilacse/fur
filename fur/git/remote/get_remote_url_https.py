@@ -2,6 +2,7 @@ import re
 import urllib.parse
 
 from git.remote.get_remote_url import get_remote_url
+from unified_print.print_warning import print_warning
 
 
 def get_remote_url_https(branch: str = None, file_path: str = None) -> str:
@@ -18,6 +19,10 @@ def get_remote_url_https(branch: str = None, file_path: str = None) -> str:
 
 
 def __convert_to_https_url(url: str) -> str:
+    if url.startswith("http://"):
+        print_warning("This repo seems to have an insecure origin URL using HTTP.")
+        return url
+
     if url.startswith("https://"):
         return url
 
