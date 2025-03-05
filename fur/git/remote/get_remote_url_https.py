@@ -28,6 +28,12 @@ def __convert_to_https_url(url: str) -> str:
         )
         return f"https://github.com/{repo_identifier}"
 
+    # handle Azure DevOps SSH urls
+    if url.startswith("git@ssh.dev.azure.com:v3"):
+        repo_identifier = url.strip().removeprefix("git@ssh.dev.azure.com:v3/")
+        path_components = repo_identifier.split("/")
+        return f"https://dev.azure.com/{path_components[0]}/{path_components[1]}/_git/{path_components[2]}"
+
     raise RuntimeError(f"Could not convert {url} to a https link.")
 
 
