@@ -1,11 +1,12 @@
 import argparse
+from typing import Callable
 
 from git import get_current_branch
 from git.remote import get_commits_url
 from link_handler import open_link
 
 
-def commits(args: []):
+def commits(args: [], handler: Callable[[str], None]):
     parser = argparse.ArgumentParser(prog="commits",
                                      description="opens the current repo's commits page in its remote origin's website")
     parser.add_argument("-b", "--branch", type=str, help="the branch to open, defaults to the current branch")
@@ -17,4 +18,4 @@ def commits(args: []):
         branch = get_current_branch()
 
     commits_url = get_commits_url(branch)
-    open_link(commits_url)
+    handler(commits_url)

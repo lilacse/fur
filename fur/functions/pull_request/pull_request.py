@@ -1,10 +1,11 @@
 import argparse
+from typing import Callable
 
 from git.remote import get_pull_request_url
 from link_handler import open_link
 
 
-def pull_request(args: []):
+def pull_request(args: [], handler: Callable[[str], None]):
     parser = argparse.ArgumentParser(prog="pull-request | pr",
                                      description="opens the pull request's page in its remote origin's website")
     parser.add_argument("pr_number", type=str, help="The pull request number to open")
@@ -13,4 +14,4 @@ def pull_request(args: []):
     pr_number = parsed_args.pr_number
 
     pull_request_url = get_pull_request_url(pr_number)
-    open_link(pull_request_url)
+    handler(pull_request_url)

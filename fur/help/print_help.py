@@ -14,4 +14,5 @@ def print_help():
     create-pull-request (aliases: cpr)
     
     Use `fur [function] -h` to get help on the function.
+    Use `fur test [function] [args]` to print the URL that will be opened by the function.
     """, file=sys.stderr)

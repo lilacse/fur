@@ -1,11 +1,12 @@
 import argparse
+from typing import Callable
 
 from git import get_current_branch
 from git.remote import get_create_pull_request_url
 from link_handler import open_link
 
 
-def create_pull_request(args: []):
+def create_pull_request(args: [], handler: Callable[[str], None]):
     parser = argparse.ArgumentParser(prog="create-pull-request | cpr",
                                      description="opens the current repo's create pull request page in its remote "
                                                  "origin's website")
@@ -22,4 +23,4 @@ def create_pull_request(args: []):
         from_branch = get_current_branch()
 
     create_pull_request_url = get_create_pull_request_url(from_branch, to_branch)
-    open_link(create_pull_request_url)
+    handler(create_pull_request_url)
