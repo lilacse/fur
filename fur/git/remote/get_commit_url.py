@@ -17,6 +17,9 @@ def __convert_to_commit_url(url: str, commit_hash: str) -> str:
     # Azure Devops's url
     elif re.match(r"^https://dev.azure.com/.+/_git/.+$", url):
         url += f"/commit/{commit_hash}"
+    # GitHub's url
+    if re.match(r"https://gitlab.com/[^/]+/[^/]+$", url):
+        url += f"/-/commit/{commit_hash}"
     else:
         raise RuntimeError(f"Conversion of url `{url}` to a commit url is not known")
 

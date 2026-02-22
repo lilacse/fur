@@ -17,6 +17,9 @@ def __convert_to_create_pull_request_url(url: str, from_branch: str = None, to_b
     # Azure Devops's url
     elif re.match(r"^https://dev.azure.com/.+/_git/.+$", url):
         url += f"/pullrequestcreate?sourceRef={from_branch}&targetRef={to_branch}"
+    # GitHub's url
+    if re.match(r"https://gitlab.com/[^/]+/[^/]+$", url):
+        url += f"/-/merge-requests/new?merge_request%5Bsource_branch%5D={from_branch}&merge_request%5Btarget_branch%5D={to_branch}"
     else:
         raise RuntimeError(f"Conversion of url `{url}` to a create pull request url is not known")
 

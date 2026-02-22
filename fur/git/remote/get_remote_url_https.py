@@ -39,6 +39,13 @@ def __convert_to_https_url(url: str) -> str:
         path_components = repo_identifier.split("/")
         return f"https://dev.azure.com/{path_components[0]}/{path_components[1]}/_git/{path_components[2]}"
 
+    # handle GitLab SSH urls
+    if url.startswith("git@gitlab.com:"):
+        repo_identifier = (
+            url.strip().removeprefix("git@gitlab.com:").removeprefix(".git")
+        )
+        return f"https://gitlab.com/{repo_identifier}"
+
     raise RuntimeError(f"Could not convert {url} to a https link.")
 
 
@@ -53,6 +60,10 @@ def __cleanup_https_remote_url(url: str) -> str:
     elif re.match(r"^https://.+@dev.azure.com/.+/_git/.+$", url):
         url = re.sub(r"^https://.+@", "https://", url)
 
+    # remove .git suffix from GitLab urls
+    elif re.match(r"^https://gitlab.com/[^/]+/[^/]+\.git", url):
+        url = url.removesuffix(".git")
+
     return url
 
 
@@ -65,6 +76,10 @@ def __add_branch_to_url(url: str, branch: str) -> str:
     elif re.match(r"^https://dev.azure.com/.+/_git/.+$", url):
         encoded_branch = urllib.parse.quote_plus(branch)
         url = url + f"?version=GB{encoded_branch}"
+
+    # GitLab's url
+    if re.match(r"^https://gitlab.com/[^/]+/[^/]+$", url):
+        url = url + f"/-/tree/{branch}"
 
     return url
 
@@ -79,5 +94,10 @@ def __add_file_path_to_url(url: str, file_path: str) -> str:
     elif re.match(r"^https://dev.azure.com/.+/_git/.+$", url):
         encoded_file_path = urllib.parse.quote_plus(f"/{file_path}")
         url = url + f"&path={encoded_file_path}"
+
+    # GitLab's url
+    if re.match(r"^https://gitlab.com/[^/]+/[^/]+/.+$", url):
+        encoded_file_path = urllib.parse.quote_plus(file_path)
+        url = url + f"/{encoded_file_path}"
 
     return url

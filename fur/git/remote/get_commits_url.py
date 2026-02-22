@@ -21,6 +21,11 @@ def __convert_to_commits_url(url: str) -> str:
         url = re.sub(r"^(https://dev.azure.com/.+/_git/.+)\?version=GB(.+)$",
                      r"\1/commits?itemVersion=GB\2",
                      url)
+    # GitHub's url with branch
+    if re.match(r"https://gitlab.com/[^/]+/[^/]+/-/tree/.+$", url):
+        url = re.sub(r"^https://gitlab.com/([^/]+)/([^/]+)/-/tree/([^/]+)",
+                     r"https://gitlab.com/\1/\2/-/commits/\3",
+                     url)
     else:
         raise RuntimeError(f"Conversion of url `{url}` to a commits url is not known")
 

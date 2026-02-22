@@ -19,6 +19,9 @@ def __convert_to_issues_url(url: str) -> str:
         url = re.sub(r"^(https://dev.azure.com/.+)/_git/.+$",
                      r"\1/_workitems",
                      url)
+    # GitHub's url
+    if re.match(r"https://gitlab.com/[^/]+/[^/]+$", url):
+        url = url + "/-/issues"
     else:
         raise RuntimeError(f"Conversion of url `{url}` to an issues url is not known")
 

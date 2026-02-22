@@ -17,6 +17,9 @@ def __convert_to_pull_request_url(url: str, pr_number: str) -> str:
     # Azure Devops's url
     elif re.match(r"^https://dev.azure.com/.+/_git/.+$", url):
         url += f"/pullrequest/{pr_number}"
+    # GitHub's url
+    if re.match(r"https://gitlab.com/[^/]+/[^/]+$", url):
+        url += f"/-/merge_requests/{pr_number}"
     else:
         raise RuntimeError(f"Conversion of url `{url}` to a pull request url is not known")
 

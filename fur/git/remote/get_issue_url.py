@@ -20,6 +20,9 @@ def __convert_to_issue_url(url: str, issue_number: str) -> str:
                      r"\1/_workitems/edit/",
                      url)
         url += f"{issue_number}/"
+    # GitHub's url
+    if re.match(r"https://gitlab.com/[^/]+/[^/]+$", url):
+        url += f"/-/issues/{issue_number}"
     else:
         raise RuntimeError(f"Conversion of url `{url}` to an issue url is not known")
 
